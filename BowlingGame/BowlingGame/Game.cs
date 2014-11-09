@@ -12,6 +12,7 @@ namespace BowlingGame
             this.Score = 0;
         }
         private int Score { get; set; }
+
         public void roll(int p)
         {
             this.Score += p;
