@@ -42,14 +42,32 @@ namespace BowlingGame.Test
         [TestMethod]
         public void testOneSpare()
         {
-            //Act
-            g.roll(5);
-            g.roll(5); // Spare
+            // Act
+            rollSpare();
             g.roll(3);
             this.rollMany(17, 0);
 
-            //Assert
+            // Assert
             Assert.AreEqual(16, g.score(), "Invalid score for spare");
+        }
+
+        [TestMethod]
+        public void testOneStrike()
+        {
+            // Act
+            g.roll(10); // Strike
+            g.roll(3);
+            g.roll(4);
+            rollMany(16, 0);
+
+            // Assert
+            Assert.AreEqual(24, g.score());
+        }
+
+        private void rollSpare()
+        {
+            g.roll(5);
+            g.roll(5); // Spare
         }
     }
 }

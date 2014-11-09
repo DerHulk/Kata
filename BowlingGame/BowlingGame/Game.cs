@@ -27,22 +27,34 @@ namespace BowlingGame
         public int score()
         {
             var result = 0;
-            var i = 0;
+            var frameIndex = 0;
             for (int frame = 0; frame < 10; frame++)
             {
-                var frameResult = this.Rolls[i] + this.Rolls[i + 1];
-
-                if (frameResult == 10) //spare
+                var frameResult = this.Rolls[frameIndex] + this.Rolls[frameIndex + 1];
+                if (this.Rolls[frameIndex] == 10) // Strike
                 {
-                    result += frameResult + this.Rolls[i + 2];
+                    result += 10 + this.Rolls[frameIndex + 1] + this.Rolls[frameIndex + 2];
+                    frameIndex++;
+                }
+                else if (isSpare(frameResult))
+                {
+                    result += frameResult + this.Rolls[frameIndex + 2];
+                    frameIndex += 2;
                 }
                 else
+                {
                     result += frameResult;
+                    frameIndex += 2;
+                }
 
-                i += 2;
             }
 
             return result;
+        }
+
+        private bool isSpare(int frameResult)
+        {
+            return frameResult == 10;
         }
     }
 }
