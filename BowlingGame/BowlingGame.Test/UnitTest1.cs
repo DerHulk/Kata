@@ -39,17 +39,17 @@ namespace BowlingGame.Test
             Assert.AreEqual(20, g.score());  
         }
 
-        /*[TestMethod]
+        [TestMethod]
         public void testOneSpare()
         {
-            // Act
+            //Act
             g.roll(5);
             g.roll(5); // Spare
             g.roll(3);
             this.rollMany(17, 0);
 
-            // Assert
+            //Assert
             Assert.AreEqual(16, g.score(), "Invalid score for spare");
-        }*/
+        }
     }
 }
