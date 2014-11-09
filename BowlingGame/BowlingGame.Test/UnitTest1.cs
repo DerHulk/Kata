@@ -4,6 +4,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 namespace BowlingGame.Test
 {
     [TestClass]
+    /// <summary>
+    /// Sample Game for Bowling Kata
+    /// https://www.google.de/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCQQFjAA&url=http%3A%2F%2Fbutunclebob.com%2Ffiles%2Fdownloads%2FBowling%2520Game%2520Kata.ppt&ei=VIhfVOj3EtLQ7AaWx4HYBQ&usg=AFQjCNFHxYawc054GuRAyXzmcYUfaJ1Z6g&bvm=bv.79189006,d.d2s
+    /// </summary>
     public class BowlingGameTest
     {
         public Game g { get; set; }
@@ -62,6 +66,16 @@ namespace BowlingGame.Test
 
             // Assert
             Assert.AreEqual(24, g.score());
+        }
+
+        [TestMethod]
+        public void testPerfection()
+        {
+            // Act
+            rollMany(12, 10);
+
+            // Assert
+            Assert.AreEqual(300, g.score());
         }
 
         private void rollStrike()

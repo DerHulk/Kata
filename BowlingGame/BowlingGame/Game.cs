@@ -6,6 +6,10 @@ using System.Threading.Tasks;
 
 namespace BowlingGame
 {
+    /// <summary>
+    /// Sample Game for Bowling Kata
+    /// https://www.google.de/url?sa=t&rct=j&q=&esrc=s&source=web&cd=1&cad=rja&uact=8&ved=0CCQQFjAA&url=http%3A%2F%2Fbutunclebob.com%2Ffiles%2Fdownloads%2FBowling%2520Game%2520Kata.ppt&ei=VIhfVOj3EtLQ7AaWx4HYBQ&usg=AFQjCNFHxYawc054GuRAyXzmcYUfaJ1Z6g&bvm=bv.79189006,d.d2s
+    /// </summary>
     public class Game
     {
         private int Score { get; set; }
@@ -43,7 +47,7 @@ namespace BowlingGame
                 }
                 else
                 {
-                    result +=  sumOfBallsInFrame(frameIndex);;
+                    result +=  this.sumOfBallsInFrame(frameIndex);;
                     frameIndex += 2;
                 }
 
