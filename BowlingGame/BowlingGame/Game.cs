@@ -8,13 +8,18 @@ namespace BowlingGame
 {
     public class Game
     {
+        public Game(){
+            this.Score = 0;
+        }
+        private int Score { get; set; }
         public void roll(int p)
         {
+            this.Score += p;
         }
 
-        public object score()
+        public int score()
         {
-            return 0;
+            return this.Score;
         }
     }
 }
