@@ -30,20 +30,20 @@ namespace BowlingGame
             var frameIndex = 0;
             for (int frame = 0; frame < 10; frame++)
             {
-                var frameResult = this.Rolls[frameIndex] + this.Rolls[frameIndex + 1];
-                if (this.Rolls[frameIndex] == 10) // Strike
+               
+                if (this.isStrike(frameIndex)) 
                 {
-                    result += 10 + this.Rolls[frameIndex + 1] + this.Rolls[frameIndex + 2];
+                    result += 10 + this.strikeBonus(frameIndex);
                     frameIndex++;
                 }
-                else if (isSpare(frameResult))
+                else if (isSpare(frameIndex))
                 {
-                    result += frameResult + this.Rolls[frameIndex + 2];
+                    result += 10 + this.spareBonus(frameIndex);
                     frameIndex += 2;
                 }
                 else
                 {
-                    result += frameResult;
+                    result +=  sumOfBallsInFrame(frameIndex);;
                     frameIndex += 2;
                 }
 
@@ -52,9 +52,29 @@ namespace BowlingGame
             return result;
         }
 
-        private bool isSpare(int frameResult)
+        private int sumOfBallsInFrame(int frameIndex)
         {
-            return frameResult == 10;
+            return this.Rolls[frameIndex] + this.Rolls[frameIndex + 1];
+        }
+
+        private int spareBonus(int frameIndex)
+        {
+            return  this.Rolls[frameIndex + 2];
+        }
+
+        private int strikeBonus(int frameIndex)
+        {
+            return this.Rolls[frameIndex + 1] + this.Rolls[frameIndex + 2];
+        }
+
+        private bool isStrike(int frameIndex)
+        {
+            return this.Rolls[frameIndex] == 10;
+        }
+
+        private bool isSpare(int frameIndex)
+        {
+            return this.Rolls[frameIndex] + this.Rolls[frameIndex +1] == 10;
         }
     }
 }

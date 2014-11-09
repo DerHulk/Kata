@@ -55,13 +55,18 @@ namespace BowlingGame.Test
         public void testOneStrike()
         {
             // Act
-            g.roll(10); // Strike
+            rollStrike(); // Strike
             g.roll(3);
             g.roll(4);
             rollMany(16, 0);
 
             // Assert
             Assert.AreEqual(24, g.score());
+        }
+
+        private void rollStrike()
+        {
+            g.roll(10);
         }
 
         private void rollSpare()
