@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using log4net.Config;
 
 namespace UmzugsApp
 {
@@ -16,7 +17,12 @@ namespace UmzugsApp
             IServer server = new DummyServer();
             var offices = server.GetOffice();
 
+            var logger = log4net.LogManager.GetLogger(typeof(Program));
+            XmlConfigurator.Configure();
+
             AskTime();
+
+            logger.Info("Hallo Welt!");
 
             string currentOffice = EnsureValidOffice(offices,"Welches Büro sitzen Sie derzeit?");
             string futureOffice = EnsureValidOffice(offices, "Welches Büro sollen Sie sitzen?");
@@ -59,7 +65,7 @@ namespace UmzugsApp
             System.Console.WriteLine(whichTime);
             DateTime parsed = new DateTime();
 
-            while (!DateTime.TryParse(System.Console.ReadLine(), out parsed) && IsValidTime(parsed))
+            while (!(DateTime.TryParse(System.Console.ReadLine(), out parsed) && IsValidTime(parsed)))
             {
                 System.Console.WriteLine(whichTime);
             }
