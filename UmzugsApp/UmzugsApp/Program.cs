@@ -35,17 +35,21 @@ namespace UmzugsApp
                 userInput2 = System.Console.ReadLine();
             }
 
+            System.Console.WriteLine("Benötigen Sie Hilfe beim Umzug(ja/nein)?");
+            var needHelp = System.Console.ReadLine();
+
+            //string compare
+            if (needHelp == "ja" || needHelp.ToLower() == "ja")
+            {
+                System.Console.WriteLine("Wie viele Helfer schätzen benötigen Sie?");
+                var countHelp = System.Console.ReadLine(); //noch welche da?
+            }
+            
             System.Console.WriteLine("Wann möchten Sie umziehen (Wunschtermin)?");
             var wishDate = System.Console.ReadLine();
 
             System.Console.WriteLine("Zu welcher Uhrzeit möchten Sie umziehen (Wunschtermin)?");
             var wishTime = System.Console.ReadLine(); //zu dieser zeit noch hilfe da?
-
-            System.Console.WriteLine("Benötigen Sie Hilfe beim Umzug?");
-            var needHelp = System.Console.ReadLine();
-
-            System.Console.WriteLine("Wie viele Helfer schätzen benötigen Sie?");
-            var countHelp = System.Console.ReadLine(); //noch welche da?
 
             System.Console.WriteLine("Wie viel Kartons benötigen Sie?");
             var countBoxes = System.Console.ReadLine(); //noch welche da für diesen Tag wie groß ist das gesammt Volumen?
