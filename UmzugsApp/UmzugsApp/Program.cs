@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -10,17 +11,28 @@ namespace UmzugsApp
     {
         static void Main(string[] args)
         {
-            var server = new Server();
-            var validator = new InputValidator(server);
+            //interface&abstract&test?
+            var httpClient = new HttpClient();
+            var request = httpClient.GetAsync("http:koapp2:5555/kvrlp/ko/offices");
+            var rawResponse = request.Result.Content.ReadAsStringAsync().Result;
+            var response = rawResponse.Split(';');
 
-            var validOffices = server.GetOffice();
-            string currentOffice = string.Empty;
-            string futureOffice = string.Empty;
-            Func<string> input = ()=> System.Console.ReadLine();
-            Action<string> output = (x) => System.Console.WriteLine(x);
+            //rename?
+            string userInput1 = string.Empty;
+            string userInput2 = string.Empty;
 
-            currentOffice = EnsureValidOffice(input ,()=> output("Welches Büro sitzen Sie derzeit?"), validator);
-            futureOffice = EnsureValidOffice(input, ()=> output("Welches Büro sollen Sie sitzen?"), validator);
+            //redundant?
+            while (!response.Any(x => x.ToString() == userInput1))
+            {
+                System.Console.WriteLine("Welches Büro sitzen Sie derzeit?");
+                userInput1 = System.Console.ReadLine();
+            }
+
+            while (!response.Any(x => x.ToString() == userInput2))
+            {
+                System.Console.WriteLine("Welches Büro sollen Sie sitzen?");
+                userInput2 = System.Console.ReadLine();
+            }
 
             System.Console.WriteLine("Wann möchten Sie umziehen (Wunschtermin)?");
             var wishDate = System.Console.ReadLine();
@@ -44,28 +56,5 @@ namespace UmzugsApp
             System.Console.WriteLine("Ok hier ihre zusammenfassung!");
             //...
         }
-
-        private static string EnsureValidOffice(IEnumerable<int> validOffices, string question)
-        {
-            var userInput = string.Empty;
-            while (!validOffices.Any(x => x.ToString() == userInput))
-            {
-                System.Console.WriteLine(question);
-                userInput = System.Console.ReadLine();
-            }
-            return userInput;
-        }
-
-        private static string EnsureValidOffice(Func<string> input, Action output, InputValidator validator)
-        {
-            var userInput = string.Empty;
-            while (!validator.IsValidOffice(userInput))
-            {
-                output.Invoke();
-                userInput = input.Invoke();
-            }
-            return userInput;
-        }
-
     }
 }
