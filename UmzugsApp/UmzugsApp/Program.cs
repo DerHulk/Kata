@@ -19,14 +19,15 @@ namespace UmzugsApp
 
             //rename?
             string userInput1 = string.Empty;
-            string userInput2 = string.Empty;
-
+           
             //redundant?
             while (!response.Any(x => x.ToString() == userInput1))
             {
                 System.Console.WriteLine("Welches Büro sitzen Sie derzeit?");
                 userInput1 = System.Console.ReadLine();
             }
+
+            string userInput2 = string.Empty;
 
             while (!response.Any(x => x.ToString() == userInput2))
             {
