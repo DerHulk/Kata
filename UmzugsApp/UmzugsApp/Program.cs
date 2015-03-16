@@ -13,7 +13,7 @@ namespace UmzugsApp
         {
             //interface&abstract&test?
             var httpClient = new HttpClient();
-            var request = httpClient.GetAsync("http://koapp2:5555/kvrlp/ko/offices");
+            var request = httpClient.GetAsync("http://someserver:5555/ko/offices");
             var rawResponse = request.Result.Content.ReadAsStringAsync().Result;
             var response = rawResponse.Split(';');
 
