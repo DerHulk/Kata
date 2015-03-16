@@ -18,19 +18,19 @@ namespace UmzugsApp
 
             AskTime();
 
-            string currentOffice = EnsureValidOffice(offices,"Welches Büro sitzen Sie derzeit?");
-            string futureOffice = EnsureValidOffice(offices, "Welches Büro sollen Sie sitzen?");
+            string currentOffice = EnsureValidOffice(offices,"In welchem Büro sitzen Sie derzeit?");
+            string futureOffice = EnsureValidOffice(offices, "In welchem Büro sollen Sie sitzen?");
 
             System.Console.WriteLine("Benötigen Sie Hilfe beim Umzug(ja/nein)?");
             var needHelp = System.Console.ReadLine();
 
             if (string.Equals(needHelp, "ja", StringComparison.OrdinalIgnoreCase)) 
             {
-                System.Console.WriteLine("Wie viele Helfer schätzen benötigen Sie?");
+                System.Console.WriteLine("Wie viele Helfer schätzen Sie, dass Sie benötigen werden?");
                 var countHelp = System.Console.ReadLine(); //noch welche da?
             }
 
-            System.Console.WriteLine("Wie viel Kartons benötigen Sie?");
+            System.Console.WriteLine("Wie viele Kartons benötigen Sie?");
             int countBoxes = 0;
             int.TryParse(System.Console.ReadLine(), out countBoxes);
           
@@ -49,7 +49,7 @@ namespace UmzugsApp
             var infos = System.Console.ReadLine();
 
             //Zusammenfassung
-            System.Console.WriteLine("Ok hier ihre zusammenfassung!");
+            System.Console.WriteLine("Hier Ihre Zusammenfassung!");
             //...
         }
 
