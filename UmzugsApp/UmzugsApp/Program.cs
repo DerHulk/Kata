@@ -13,7 +13,7 @@ namespace UmzugsApp
         {
             //interface&abstract&test?
             var httpClient = new HttpClient();
-            var request = httpClient.GetAsync("http:koapp2:5555/kvrlp/ko/offices");
+            var request = httpClient.GetAsync("http://koapp2:5555/kvrlp/ko/offices");
             var rawResponse = request.Result.Content.ReadAsStringAsync().Result;
             var response = rawResponse.Split(';');
 
@@ -23,7 +23,7 @@ namespace UmzugsApp
             //redundant?
             while (!response.Any(x => x.ToString() == userInput1))
             {
-                System.Console.WriteLine("Welches Büro sitzen Sie derzeit?");
+                System.Console.WriteLine("In welchem Büro sitzen Sie derzeit?");
                 userInput1 = System.Console.ReadLine();
             }
 
@@ -31,7 +31,7 @@ namespace UmzugsApp
 
             while (!response.Any(x => x.ToString() == userInput2))
             {
-                System.Console.WriteLine("Welches Büro sollen Sie sitzen?");
+                System.Console.WriteLine("In welchem Büro sollen Sie sitzen?");
                 userInput2 = System.Console.ReadLine();
             }
 
@@ -41,12 +41,12 @@ namespace UmzugsApp
             //string compare
             if (needHelp == "ja" || needHelp.ToLower() == "ja")
             {
-                System.Console.WriteLine("Wie viele Helfer schätzen benötigen Sie?");
+                System.Console.WriteLine("Wie viele Helfer schätzen Sie, werden Sie benötigen?");
                 var countHelp = System.Console.ReadLine(); //noch welche da?
             }
 
             //sicheres parsen...mit tryPattern
-            System.Console.WriteLine("Wie viel Kartons benötigen Sie?");
+            System.Console.WriteLine("Wie viele Kartons benötigen Sie?");
             int countBoxes = 0;
 
             try
@@ -73,7 +73,7 @@ namespace UmzugsApp
             var infos = System.Console.ReadLine();
 
             //Zusammenfassung
-            System.Console.WriteLine("Ok hier ihre zusammenfassung!");
+            System.Console.WriteLine("Hier Ihre Zusammenfassung!");
             //...
         }
     }
