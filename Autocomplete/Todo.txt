@@ -1,0 +1,26 @@
+Fragmente aus einem String ermitteln der Keywords besitzt.
+Keywords sind z.B Ort, Name, PlZ 
+Diese können kombiniert werden z.B
+
+Name Musterman Heinz Ort Abc Plz 33222 
+
+Dabei sollen immer paare ermittelt werden
+Keyword, Value
+
+Ausserdem soll ein Vorschlagsliste ermittelt werden die
+den bestehenden String erweitert um die Keywords, wobei kein Keyword
+doppelt in einem String enthalten sein darf.
+
+Beispiel:
+
+Eingabe-> Name Musterman Heinz 
+Ausgabe -> Name Musterman Heinz Ort 
+Ausgabe -> Name Musterman Heinz PLZ 
+
+Erweiter den Code um die folgenden Keywords
+Geburtsdatum, Stichtag
+
+Beide werte dürfen nur Datumwerte enthalten.
+
+
+Der letzte Teil eines Fragmentes soll an den Server geschickt werden dieser soll dann weitere Vorschläge schicken??
