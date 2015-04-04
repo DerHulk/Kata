@@ -22,5 +22,4 @@ Geburtsdatum, Stichtag
 
 Beide werte dürfen nur Datumwerte enthalten.
 
-
 Der letzte Teil eines Fragmentes soll an den Server geschickt werden dieser soll dann weitere Vorschläge schicken??

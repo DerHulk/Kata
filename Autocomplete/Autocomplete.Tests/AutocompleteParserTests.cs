@@ -20,11 +20,27 @@ namespace Autocomplete.Tests
                 {
                     new object[] { "Name Musterman Heinz Ort Abc Plz 33222 ", 
                         new Dictionary<string,string>(){  
-                            {"Name", "Musterman Heinz"}
+                            {"Name", "Musterman Heinz"},
+                            {"Ort", "Abc"},
+                            {"Plz", "33222"}
                         } },
                 };
             }
 
+        }
+
+        public static IEnumerable<object[]> ProposeData
+        {
+            get
+            {
+                return new[] 
+                {
+                    new object[] {
+                        "Name Musterman Heinz ", 
+                        new string[]{"Name Musterman Heinz Ort", "Name Musterman Heinz PLZ"}
+                    }
+                };
+            }
         }
 
         [Theory(DisplayName = "Ermitteln der Fragmente aus einem String."), MemberData("FragmentsData")]
@@ -32,12 +48,25 @@ namespace Autocomplete.Tests
         {
             //arrange
             var target = new AutocompleteParser();
-            
+
             //act
             var result = target.Parse(input);
 
             //assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected.ToList(), result.ToList());
+        }
+
+        [Theory(DisplayName = "Ermittelt ob eine Wortvorschlag korrekt zurück gegeben würde."), MemberData("ProposeData")]
+        public void CheckPropose(string input, IEnumerable<string> expectedProposals)
+        {
+            //arrange
+            var target = new AutocompleteParser();
+
+            //act
+            var result = target.Propose(input);
+
+            //assert
+            Assert.Equal(expectedProposals, result);
         }
 
     }
