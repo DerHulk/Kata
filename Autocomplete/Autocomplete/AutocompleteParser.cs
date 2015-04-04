@@ -9,11 +9,20 @@ namespace Autocomplete
 {
     public class AutocompleteParser
     {
-        private static string[] Keywords = new string[] { "Name", "Ort", "PLZ" };
-        private static Regex FragmentRegex = new Regex("(Name|Ort|PLZ)(.*?)(?=Name|ort|Plz|$)", RegexOptions.IgnoreCase);
+        private Regex FragmentRegex;
+        private List<Keyword> Keywords { get; set; }
 
         public AutocompleteParser()
         {
+            this.Keywords = new List<Keyword>();
+
+            foreach (var item in new string[] { "Name", "Ort", "PLZ", "Geburtsdatum","Stichtag", "LANR" })
+            {
+                this.Keywords.Add(new Keyword(item));
+            }
+
+            var pattern = string.Format( "({0})(.*?)(?={0}|$)", string.Join("|", this.Keywords.Select(x=> x.Key)));
+            this.FragmentRegex = new Regex(pattern, RegexOptions.IgnoreCase);
         }
 
         public Dictionary<string, string> Parse(string input)
@@ -38,15 +47,12 @@ namespace Autocomplete
             input = input.Trim();
             var proposeList = new List<string>();
             
-            foreach (var item in AutocompleteParser.Keywords)
+            foreach (var item in this.Keywords)
             {
-                var pattern = string.Format( @"({0})(\s)", item);
-                var existKeyword = new Regex( pattern , RegexOptions.IgnoreCase);
-
-                if (existKeyword.IsMatch(input))
+                if (item.IsContained(input))
                     continue;
 
-                proposeList.Add(string.Concat(input, " ", item));       
+                proposeList.Add(string.Concat(input, " ", item.Key));       
             }
 
             return proposeList;
