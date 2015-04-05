@@ -15,11 +15,14 @@ namespace Autocomplete
         public AutocompleteParser()
         {
             this.Keywords = new List<Keyword>();
+            Func<string,bool> defaultValidator = (x) => true;
 
-            foreach (var item in new string[] { "Name", "Ort", "PLZ", "Geburtsdatum","Stichtag", "LANR" })
-            {
-                this.Keywords.Add(new Keyword(item));
-            }
+            this.Keywords.Add(new Keyword("LANR", defaultValidator, 1));
+            this.Keywords.Add(new Keyword("Name", defaultValidator, 2));
+            this.Keywords.Add(new Keyword("Ort", defaultValidator,3 ));
+            this.Keywords.Add(new Keyword("PLZ", defaultValidator, 3));
+            this.Keywords.Add(new Keyword("Geburtsdatum", defaultValidator, 4));
+            this.Keywords.Add(new Keyword("Stichtag", defaultValidator, 5));
 
             var pattern = string.Format( "({0})(.*?)(?={0}|$)", string.Join("|", this.Keywords.Select(x=> x.Key)));
             this.FragmentRegex = new Regex(pattern, RegexOptions.IgnoreCase);
@@ -28,17 +31,24 @@ namespace Autocomplete
         public Dictionary<string, string> Parse(string input)
         {
             var matching = FragmentRegex.Matches(input);
-            var result = new Dictionary<string, string>();
+            var result = new List<KeywordValue>();
 
             foreach (var item in matching)
             {
+                
                 var key = ((System.Text.RegularExpressions.Match)item).Groups[1].Value;
                 var value = ((System.Text.RegularExpressions.Match)item).Groups[2].Value;
 
-                result.Add(key, value.Trim());
+                var keyword = this.Keywords.Where(x => string.Equals(x.Key, key, StringComparison.OrdinalIgnoreCase)).FirstOrDefault();
+
+                if (keyword != null)
+                {
+                    var keywordValue = new KeywordValue(keyword, value);
+                    result.Add(keywordValue);
+                }
             }
 
-            return result;
+            return result.OrderBy(x=> x.Keyword.Order).ToDictionary(x=> x.Keyword.Key, x=> x.Value);
 
         }
 
@@ -51,6 +61,9 @@ namespace Autocomplete
             {
                 if (item.IsContained(input))
                     continue;
+
+                if (input.StartsWith(item.Key))
+                { }
 
                 proposeList.Add(string.Concat(input, " ", item.Key));       
             }

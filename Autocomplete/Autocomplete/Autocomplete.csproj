@@ -41,6 +41,7 @@
   <ItemGroup>
     <Compile Include="AutocompleteParser.cs" />
     <Compile Include="Keyword.cs" />
+    <Compile Include="KeywordValue.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

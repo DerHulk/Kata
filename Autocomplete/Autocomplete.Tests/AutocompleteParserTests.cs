@@ -22,7 +22,7 @@ namespace Autocomplete.Tests
                         new Dictionary<string,string>(){  
                             {"Name", "Musterman Heinz"},
                             {"Ort", "Abc"},
-                            {"Plz", "33222"}
+                            {"PLZ", "33222"}
                         } },
                 };
             }
@@ -37,8 +37,21 @@ namespace Autocomplete.Tests
                 {
                     new object[] {
                         "Name Musterman Heinz ", 
-                        new string[]{"Name Musterman Heinz Ort", "Name Musterman Heinz PLZ"}
+                        new string[]{"Name Musterman Heinz LANR", 
+                                     "Name Musterman Heinz Ort", 
+                                     "Name Musterman Heinz PLZ",
+                                     "Name Musterman Heinz Geburtsdatum", 
+                                     "Name Musterman Heinz Stichtag"}
+                    },
+
+                     new object[] {
+                        "la", 
+                        new string[]{"LANR", 
+                                     "Name la", 
+                                     "Ort la"
+                        }
                     }
+
                 };
             }
         }
@@ -56,7 +69,7 @@ namespace Autocomplete.Tests
             Assert.Equal(expected.ToList(), result.ToList());
         }
 
-        [Theory(DisplayName = "Ermittelt ob eine Wortvorschlag korrekt zurück gegeben würde."), MemberData("ProposeData")]
+        [Theory(DisplayName = "Ermittelt ob eine Wortvorschlag in der Richtigen Reihenfolge korrekt zurück gegeben würde."), MemberData("ProposeData")]
         public void CheckPropose(string input, IEnumerable<string> expectedProposals)
         {
             //arrange
@@ -67,6 +80,7 @@ namespace Autocomplete.Tests
 
             //assert
             Assert.Equal(expectedProposals, result);
+            
         }
 
     }

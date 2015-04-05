@@ -20,9 +20,25 @@ Ausgabe -> Name Musterman Heinz PLZ
 Erweiter den Code um die folgenden Keywords
 Geburtsdatum, Stichtag
 
-Beide werte dürfen nur Datumwerte enthalten.
-
 Stellen Sie sicher das die Folgende Reihenfolge beim Proposal immer eingehalten wird.
 LANR, NAME, ORT, Geb, Stichtag
 
+Wenn das ein Leer String übergeben wird solle nur die Vorschlagsliste zurück gegeben werden.
+Wenn der übergebene Wert anfängt wie eines der Keywords dann soll dieses zurück gegeben werden.
+Wenn der übergebene Wert nicht anfängt wie das Keyword und numerisch ist soll Postleitzahl oder LANR zurück gegeben werden.
+Wenn der übergebene Wert numerisch sieben stellig ist soll LANR zurück gegeben werden.
+Wenn der übergebene Wert numerisch 5 stellig ist soll PLZ zurück gegeben werden.
+Wenn der übergebene Wert nicht alphanumerisch ist soll Ort, Name zurück gegeben werden.
+Wenn der übergebene Wert ein Datum ist soll Stichtag oder Geburstag zurück gegeben werden.
+
+Beispiele:
+
+la -> LANR, Name la, Ort la 
+las -> Name las, Ort las
+Bad Em-> Name Bad Em, Ort Bad Em
+123 -> LANR 123, PLZ 123
+12345567 -> Lanr 1234567
+01.01.2015 -> Stichtag 01.01.2015, Geb 01.01.2015
+
 Der letzte Teil eines Fragmentes soll an den Server geschickt werden dieser soll dann weitere Vorschläge schicken??
+Beide Werte dürfen nur Datumwerte enthalten.
