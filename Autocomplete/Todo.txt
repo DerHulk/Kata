@@ -23,17 +23,22 @@ Geburtsdatum, Stichtag
 Stellen Sie sicher das die Folgende Reihenfolge beim Proposal immer eingehalten wird.
 LANR, NAME, ORT, Geb, Stichtag
 
-Wenn das ein Leer String übergeben wird solle nur die Vorschlagsliste zurück gegeben werden.
-Wenn der übergebene Wert anfängt wie eines der Keywords dann soll dieses zurück gegeben werden.
+Wenn ein Leer String übergeben wird solle nur die Vorschlagsliste zurück gegeben werden.
+Wenn der übergebene Wert anfängt wie eines der Keywords dann soll dieser zurück gegeben werden.
 Wenn der übergebene Wert nicht anfängt wie das Keyword und numerisch ist soll Postleitzahl oder LANR zurück gegeben werden.
 Wenn der übergebene Wert numerisch sieben stellig ist soll LANR zurück gegeben werden.
 Wenn der übergebene Wert numerisch 5 stellig ist soll PLZ zurück gegeben werden.
-Wenn der übergebene Wert nicht alphanumerisch ist soll Ort, Name zurück gegeben werden.
+Wenn der übergebene Wert nicht numerisch ist soll Ort, Name zurück gegeben werden.
 Wenn der übergebene Wert ein Datum ist soll Stichtag oder Geburstag zurück gegeben werden.
+Wenn der übergebene Wert wieder eine 'geschlossene' Liste von Key-Values beinhaltet kann die gesammte Vorschlagsliste geliefert werden.
 
 Beispiele:
 
-la -> LANR, Name la, Ort la 
+la-> LANR, Name la, Ort la 
+ort xyz la -> ort xyz la, ort xyz LANR, ort xyz Name la
+ort xyz la la  -> ort xyz, ort xyz la LANR
+la ort xyz -> ort xyz LANR, ort xyz Name la
+
 las -> Name las, Ort las
 Bad Em-> Name Bad Em, Ort Bad Em
 123 -> LANR 123, PLZ 123

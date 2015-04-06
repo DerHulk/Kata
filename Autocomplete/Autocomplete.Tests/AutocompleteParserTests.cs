@@ -45,6 +45,26 @@ namespace Autocomplete.Tests
                     },
 
                      new object[] {
+                        "", 
+                        new string[]{"LANR", 
+                                     "Name", 
+                                     "Ort", 
+                                     "PLZ",
+                                     "Geburtsdatum", 
+                                     "Stichtag"}
+                     },
+
+                     new object[] {
+                        " ", 
+                        new string[]{"LANR", 
+                                     "Name", 
+                                     "Ort", 
+                                     "PLZ",
+                                     "Geburtsdatum", 
+                                     "Stichtag"}
+                     },
+
+                     new object[] {
                         "la", 
                         new string[]{"LANR", 
                                      "Name la", 

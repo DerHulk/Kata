@@ -15,16 +15,27 @@ namespace Autocomplete
         public AutocompleteParser()
         {
             this.Keywords = new List<Keyword>();
-            Func<string,bool> defaultValidator = (x) => true;
+            Func<string, bool> defaultValidator = (x) => true;
+            Func<string, bool> dateValidator = (x) =>
+            {
+                var parsedDate = DateTime.Now;
+                return DateTime.TryParse(x, out parsedDate);
+            };
 
-            this.Keywords.Add(new Keyword("LANR", defaultValidator, 1));
+            Func<string, bool> numberValidator = (x) =>
+            {
+                var parsedInt = 0;
+                return int.TryParse(x, out parsedInt);
+            };
+
+            this.Keywords.Add(new Keyword("LANR", numberValidator , 1));
             this.Keywords.Add(new Keyword("Name", defaultValidator, 2));
-            this.Keywords.Add(new Keyword("Ort", defaultValidator,3 ));
-            this.Keywords.Add(new Keyword("PLZ", defaultValidator, 3));
-            this.Keywords.Add(new Keyword("Geburtsdatum", defaultValidator, 4));
-            this.Keywords.Add(new Keyword("Stichtag", defaultValidator, 5));
+            this.Keywords.Add(new Keyword("Ort", defaultValidator, 3));
+            this.Keywords.Add(new Keyword("PLZ", numberValidator, 3));
+            this.Keywords.Add(new Keyword("Geburtsdatum", dateValidator, 4));
+            this.Keywords.Add(new Keyword("Stichtag", dateValidator, 5));
 
-            var pattern = string.Format( "({0})(.*?)(?={0}|$)", string.Join("|", this.Keywords.Select(x=> x.Key)));
+            var pattern = string.Format("({0})(.*?)(?={0}|$)", string.Join("|", this.Keywords.Select(x => x.Key)));
             this.FragmentRegex = new Regex(pattern, RegexOptions.IgnoreCase);
         }
 
@@ -35,7 +46,6 @@ namespace Autocomplete
 
             foreach (var item in matching)
             {
-                
                 var key = ((System.Text.RegularExpressions.Match)item).Groups[1].Value;
                 var value = ((System.Text.RegularExpressions.Match)item).Groups[2].Value;
 
@@ -48,27 +58,55 @@ namespace Autocomplete
                 }
             }
 
-            return result.OrderBy(x=> x.Keyword.Order).ToDictionary(x=> x.Keyword.Key, x=> x.Value);
+            return result.OrderBy(x => x.Keyword.Order).ToDictionary(x => x.Keyword.Key, x => x.Value);
 
         }
 
         public IEnumerable<string> Propose(string input)
         {
+            if (input.EndsWith(" "))
+                return this.ProposeDefaults(input);
+
+            return this.ProposeForLastValue(input);
+        }
+
+        private IEnumerable<string> ProposeDefaults(string input)
+        {
             input = input.Trim();
             var proposeList = new List<string>();
-            
+
             foreach (var item in this.Keywords)
             {
                 if (item.IsContained(input))
                     continue;
 
-                if (input.StartsWith(item.Key))
-                { }
+                proposeList.Add(string.Concat(input, " ", item.Key).Trim());
 
-                proposeList.Add(string.Concat(input, " ", item.Key));       
             }
 
             return proposeList;
+        }
+
+        private IEnumerable<string> ProposeForLastValue(string input)
+        {
+            var lastValue = input.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
+            var keywordMatching = this.Keywords.Where(x => x.Key.StartsWith(lastValue, StringComparison.OrdinalIgnoreCase));
+            var keyvalueMatching = this.Keywords.Where(x => x.Validator(lastValue));
+            var result = Enumerable.Empty<string>();
+
+            if (keywordMatching.Count() > 0)
+            {
+                result = result.Union(keywordMatching.OrderBy(x => x.Order).Select(x => input.ReplaceLastOccurrence(lastValue, x.Key)));
+            }
+
+            if (keyvalueMatching.Count() > 0)
+            {
+                result = result.Union(keyvalueMatching.OrderBy(x => x.Order).Select(x => input.ReplaceLastOccurrence(lastValue,
+                                                                 string.Format("{0} {1}", x.Key, lastValue))));
+            }
+
+            return result.ToArray();
+
         }
     }
 }
