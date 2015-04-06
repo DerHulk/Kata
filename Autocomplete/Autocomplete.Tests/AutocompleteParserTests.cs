@@ -70,7 +70,37 @@ namespace Autocomplete.Tests
                                      "Name la", 
                                      "Ort la"
                         }
+                    },
+
+                    new object[] {
+                        "las", 
+                        new string[]{"Name las", 
+                                     "Ort las"
+                        }
+                    },
+                     new object[] {
+                        "Bad Em", 
+                        new string[]{"Name Bad Em", 
+                                     "Ort Bad Em"
+                        }
+                    },
+                    //vervollständigungslogik des Ortes
+                     new object[] {
+                        "Ort Bad Em", 
+                        new string[]{"Ort Bad Em"}
+                    },
+
+                     new object[] {
+                        "Ort Bad Em ", 
+                        new string[]{"Ort Bad Em LANR", 
+                                     "Ort Bad Em Name",
+                                     "Ort Bad Em PLZ",
+                                     "Ort Bad Em Geburtsdatum",
+                                     "Ort Bad Em Stichtag"
+                        }
                     }
+
+
 
                 };
             }

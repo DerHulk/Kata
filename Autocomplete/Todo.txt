@@ -37,7 +37,6 @@ Beispiele:
 la-> LANR, Name la, Ort la 
 ort xyz la -> ort xyz la, ort xyz LANR, ort xyz Name la
 ort xyz la la  -> ort xyz, ort xyz la LANR
-la ort xyz -> ort xyz LANR, ort xyz Name la
 
 las -> Name las, Ort las
 Bad Em-> Name Bad Em, Ort Bad Em

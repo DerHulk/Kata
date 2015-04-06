@@ -9,14 +9,27 @@ namespace Autocomplete
 {
     public class Keyword
     {
+        public static readonly Keyword Empty = new Keyword();
         private readonly Regex IsContainedRegex;
 
         public string Key { get; private set; 
         }
         public bool IsContained(string input)
         {
+            if (this.IsContainedRegex == null)
+                return false;
+
             return IsContainedRegex.IsMatch(input);
         }
+        public bool IsKey(string input)
+        {
+            return string.Equals(this.Key, input, StringComparison.OrdinalIgnoreCase);
+        }
+        public bool IsEmptyKey()
+        {
+            return this.Key.Equals(Empty);
+        }
+
         public Func< string, bool> Validator { get; private set; }
         public int Order { get; private set; }
 
@@ -33,6 +46,14 @@ namespace Autocomplete
             : this(value, (x)=> true)
         {
          
+        }
+
+        private Keyword()
+        {
+            this.Key = string.Empty;
+            this.Validator = (x) => false;
+            this.Order = 0;
+            this.IsContainedRegex = null;
         }
     }
 }

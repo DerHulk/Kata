@@ -64,7 +64,7 @@ namespace Autocomplete
 
         public IEnumerable<string> Propose(string input)
         {
-            if (input.EndsWith(" "))
+            if (string.IsNullOrEmpty(input ) || input.EndsWith(" "))
                 return this.ProposeDefaults(input);
 
             return this.ProposeForLastValue(input);
@@ -89,24 +89,48 @@ namespace Autocomplete
 
         private IEnumerable<string> ProposeForLastValue(string input)
         {
-            var lastValue = input.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).LastOrDefault();
-            var keywordMatching = this.Keywords.Where(x => x.Key.StartsWith(lastValue, StringComparison.OrdinalIgnoreCase));
-            var keyvalueMatching = this.Keywords.Where(x => x.Validator(lastValue));
+            var lastValue = new LastFragment( input, this.Keywords);
+            var keywordMatching = this.Keywords.Where(x => x.Key.StartsWith(lastValue.Value.Value, StringComparison.OrdinalIgnoreCase));
+            var keyvalueMatching = this.Keywords.Where(x => x.Validator(lastValue.Value.Value));
             var result = Enumerable.Empty<string>();
+
+            //es existiert also ein kontext zu einem keyword.
+            if (!Keyword.Empty.Equals(lastValue.Value.Keyword))
+            {
+                //hier könnte keyword abhänig eine suche hinzugefügt werden.
+                result = result.Union(new string[]{input});
+                return result.ToArray();
+            }
 
             if (keywordMatching.Count() > 0)
             {
-                result = result.Union(keywordMatching.OrderBy(x => x.Order).Select(x => input.ReplaceLastOccurrence(lastValue, x.Key)));
+                result = result.Union(keywordMatching.OrderBy(x => x.Order).Select(x => 
+                    input.ReplaceLastOccurrence(lastValue.Value.Value, x.Key)));
             }
 
-            if (keyvalueMatching.Count() > 0)
+            if ( keyvalueMatching.Count() > 0)
             {
-                result = result.Union(keyvalueMatching.OrderBy(x => x.Order).Select(x => input.ReplaceLastOccurrence(lastValue,
-                                                                 string.Format("{0} {1}", x.Key, lastValue))));
+                result = result.Union(keyvalueMatching.OrderBy(x => x.Order).Select(x => 
+                    input.ReplaceLastOccurrence(lastValue.Value.Value, string.Format("{0} {1}", x.Key, lastValue.Value.Value))));
             }
 
             return result.ToArray();
 
+        }
+
+        private string GetLastInput(string input)
+        {
+            var fragments = input.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries).ToList();
+            var keywordIndex =  from f in fragments
+                                where this.Keywords.Any(x => string.Equals(x.Key, f, StringComparison.OrdinalIgnoreCase))
+                                select fragments.LastIndexOf(f);
+
+            if (keywordIndex.Count() <= 0)
+                return input;
+
+            var lastIndex = keywordIndex.OrderBy(x => x).LastOrDefault() +1;
+
+            return string.Join(" ", fragments.Skip(lastIndex));
         }
     }
 }
