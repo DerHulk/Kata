@@ -1,0 +1,18 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+<div class="jumbotron">
+    <h1>Autocomplete Sample</h1>
+</div>
+
+<div class="row" >
+    <div class="col-md-12" >
+        <div ng-app="autcompleteSample">
+            <div ng-controller="autocompleteController">
+                <h2>Add input here</h2>
+                <input type="text" ng-model="selected" typeahead="item for item in Items| limitTo:8" class="form-control">
+            </div>
+        </div>
+    </div>
+</div>

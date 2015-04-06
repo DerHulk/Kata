@@ -72,7 +72,7 @@ namespace Autocomplete
 
         private IEnumerable<string> ProposeDefaults(string input)
         {
-            input = input.Trim();
+           input = input.Trim();
             var proposeList = new List<string>();
 
             foreach (var item in this.Keywords)
@@ -90,9 +90,15 @@ namespace Autocomplete
         private IEnumerable<string> ProposeForLastValue(string input)
         {
             var lastValue = new LastFragment( input, this.Keywords);
-            var keywordMatching = this.Keywords.Where(x => x.Key.StartsWith(lastValue.Value.Value, StringComparison.OrdinalIgnoreCase));
+            var keywordMatching = this.Keywords.Where(x => x.Key.StartsWith(lastValue.Last, StringComparison.OrdinalIgnoreCase));
             var keyvalueMatching = this.Keywords.Where(x => x.Validator(lastValue.Value.Value));
             var result = Enumerable.Empty<string>();
+
+            if (keywordMatching.Count() > 0)
+            {
+                result = result.Union(keywordMatching.OrderBy(x => x.Order).Select(x =>
+                    input.ReplaceLastOccurrence(lastValue.Last, x.Key)));
+            }
 
             //es existiert also ein kontext zu einem keyword.
             if (!Keyword.Empty.Equals(lastValue.Value.Keyword))
@@ -100,12 +106,6 @@ namespace Autocomplete
                 //hier könnte keyword abhänig eine suche hinzugefügt werden.
                 result = result.Union(new string[]{input});
                 return result.ToArray();
-            }
-
-            if (keywordMatching.Count() > 0)
-            {
-                result = result.Union(keywordMatching.OrderBy(x => x.Order).Select(x => 
-                    input.ReplaceLastOccurrence(lastValue.Value.Value, x.Key)));
             }
 
             if ( keyvalueMatching.Count() > 0)

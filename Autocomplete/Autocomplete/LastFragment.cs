@@ -9,6 +9,7 @@ namespace Autocomplete
     public class LastFragment
     {
         public KeywordValue Value { get; private set; }
+        public string Last { get; private set; }
 
         public LastFragment(string input, IEnumerable<Keyword> keywords)
         {
@@ -27,6 +28,8 @@ namespace Autocomplete
 
                 this.Value = new KeywordValue(last.key, string.Join(" ", fragments.Skip(last.index + 1)));
             }
+
+            this.Last = fragments.Last();
             
         }
 
