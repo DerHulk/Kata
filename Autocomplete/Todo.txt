@@ -1,0 +1,48 @@
+Fragmente aus einem String ermitteln der Keywords besitzt.
+Keywords sind z.B Ort, Name, PlZ 
+Diese können kombiniert werden z.B
+
+Name Musterman Heinz Ort Abc Plz 33222 
+
+Dabei sollen immer paare ermittelt werden
+Keyword, Value
+
+Ausserdem soll ein Vorschlagsliste ermittelt werden die
+den bestehenden String erweitert um die Keywords, wobei kein Keyword
+doppelt in einem String enthalten sein darf.
+
+Beispiel:
+
+Eingabe-> Name Musterman Heinz 
+Ausgabe -> Name Musterman Heinz Ort 
+Ausgabe -> Name Musterman Heinz PLZ 
+
+Erweiter den Code um die folgenden Keywords
+Geburtsdatum, Stichtag
+
+Stellen Sie sicher das die Folgende Reihenfolge beim Proposal immer eingehalten wird.
+LANR, NAME, ORT, Geb, Stichtag
+
+Wenn ein Leer String übergeben wird solle nur die Vorschlagsliste zurück gegeben werden.
+Wenn der übergebene Wert anfängt wie eines der Keywords dann soll dieser zurück gegeben werden.
+Wenn der übergebene Wert nicht anfängt wie das Keyword und numerisch ist soll Postleitzahl oder LANR zurück gegeben werden.
+Wenn der übergebene Wert numerisch sieben stellig ist soll LANR zurück gegeben werden.
+Wenn der übergebene Wert numerisch 5 stellig ist soll PLZ zurück gegeben werden.
+Wenn der übergebene Wert nicht numerisch ist soll Ort, Name zurück gegeben werden.
+Wenn der übergebene Wert ein Datum ist soll Stichtag oder Geburstag zurück gegeben werden.
+Wenn der übergebene Wert wieder eine 'geschlossene' Liste von Key-Values beinhaltet kann die gesammte Vorschlagsliste geliefert werden.
+
+Beispiele:
+
+la-> LANR, Name la, Ort la 
+ort xyz la -> ort xyz la, ort xyz LANR, ort xyz Name la
+ort xyz la la  -> ort xyz, ort xyz la LANR
+
+las -> Name las, Ort las
+Bad Em-> Name Bad Em, Ort Bad Em
+123 -> LANR 123, PLZ 123
+12345567 -> Lanr 1234567
+01.01.2015 -> Stichtag 01.01.2015, Geb 01.01.2015
+
+Der letzte Teil eines Fragmentes soll an den Server geschickt werden dieser soll dann weitere Vorschläge schicken??
+Beide Werte dürfen nur Datumwerte enthalten.
