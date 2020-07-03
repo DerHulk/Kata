@@ -9,6 +9,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palindrom.Tests", "Palindro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Palindrom.SimpleApp", "Palindrom.SimpleApp\Palindrom.SimpleApp.csproj", "{6DED6FDE-B481-4B20-ACA3-66952435D607}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Palindrom.Forms", "Palindrom.Forms\Palindrom.Forms.csproj", "{BC34E05E-92B4-4670-B9A7-B000CCBFABDE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,10 @@ Global
 		{6DED6FDE-B481-4B20-ACA3-66952435D607}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DED6FDE-B481-4B20-ACA3-66952435D607}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DED6FDE-B481-4B20-ACA3-66952435D607}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BC34E05E-92B4-4670-B9A7-B000CCBFABDE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BC34E05E-92B4-4670-B9A7-B000CCBFABDE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BC34E05E-92B4-4670-B9A7-B000CCBFABDE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BC34E05E-92B4-4670-B9A7-B000CCBFABDE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

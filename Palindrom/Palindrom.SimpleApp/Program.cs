@@ -5,7 +5,7 @@ namespace Palindrom.SimpleApp
     class Program
     {
         static void Main(string[] args)
-        {
+        {            
             Console.WriteLine("Enter a number to get the matching palindrom for it:");
             var input = Console.ReadLine();
 

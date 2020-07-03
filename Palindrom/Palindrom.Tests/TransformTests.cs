@@ -51,7 +51,7 @@ namespace Palindrom.Tests
             var result = this.Target.palindrome(196);
 
             //assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.foundPalindrom);
         }
 
         [Theory(DisplayName = "Check if the given examples are matched.")]
@@ -64,7 +64,7 @@ namespace Palindrom.Tests
             var result = this.Target.palindrome(input);
 
             //assert
-            Assert.Equal(expected, result);
+            Assert.Equal(expected, result.foundPalindrom);
 
         }
 

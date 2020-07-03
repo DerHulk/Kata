@@ -14,16 +14,19 @@ namespace Palindrom
         private const int UpperCandiateLimit = 1000000000;
         private const int NotFound = -1;
 
-        public int palindrome(int toTransform)
+        public (int foundPalindrom, int cyle) palindrome(int toTransform)
         {
             if (toTransform < LowerLimit || toTransform > UpperLimit)
                 throw new ArgumentOutOfRangeException(nameof(toTransform));
 
             //20min schon gemacht! 21:10
-            return this.CalculatePalindrom(toTransform);
+            var cylce = 1;
+            var result = this.CalculatePalindrom(toTransform, ref cylce);
+
+            return (result, cylce);
         }
 
-        private int CalculatePalindrom(int toTransform)
+        private int CalculatePalindrom(int toTransform, ref int cyle)
         {
             if (toTransform > UpperCandiateLimit)
                 return NotFound;
@@ -33,8 +36,9 @@ namespace Palindrom
 
             var reversed = Helper.Reverse(toTransform);
             var candidate = toTransform + reversed;
+            cyle++;
 
-            return this.CalculatePalindrom(candidate);
+            return this.CalculatePalindrom(candidate, ref cyle);
         }
 
         /// <summary>
@@ -53,6 +57,6 @@ namespace Palindrom
             var reversed = Helper.Reverse(toProof);
 
             return toProof == reversed;
-        }
+        }       
     }
 }
