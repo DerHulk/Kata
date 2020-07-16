@@ -23,7 +23,6 @@ Example:
     -------
         15
 
-
 2. Erweitern Sie die Method um die folgenden Zusatzinformationen:
 - Wieviele Teilungen sind es bis zum erreichen der 1?
 - Wieviele gestrichenen Zahlen gab es?
