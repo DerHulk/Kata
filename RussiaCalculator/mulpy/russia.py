@@ -34,6 +34,8 @@ class RMul:
 
         if x > y: # swap to reduce iterations.
             x, y = y, x
+        if x == 0:
+            return 0
 
         result = sum(self._mul(x, y))
 

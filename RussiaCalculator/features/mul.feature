@@ -10,6 +10,7 @@ Feature: Multiplication
      Then we expect the result == <expected>
     Examples:
     |  x |  y | expected |
+    |  0 |  1 |      0   |
     |  5 |  3 |      15  |
     | -7 |  3 |     -21  |
     | -7 | -5 |      35  |
