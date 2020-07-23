@@ -31,6 +31,10 @@ class RMul:
         sign_x = 1 if x > 0 else -1
         sign_y = 1 if y > 0 else -1
         x, y = abs(x), abs(y)
+
+        if x > y: # swap to reduce iterations.
+            x, y = y, x
+
         result = sum(self._mul(x, y))
 
         return result if sign_x == sign_y else -result

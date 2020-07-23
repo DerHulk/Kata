@@ -22,8 +22,8 @@ Feature: Multiplication
      Then we expect <iterations> iterations
     Examples:
     |  x |  y | iterations |
-    |  5 |  3 |          3 |
-    |  7 |  3 |          3 |
+    |  5 |  3 |          2 |
+    |  7 |  3 |          2 |
     | 42 | 47 |          6 |
 
   Scenario Outline: Anzahl gestrichene
@@ -33,6 +33,6 @@ Feature: Multiplication
      Then we expect <even> numbers
     Examples:
     |  x |  y | even |
-    |  5 |  3 |    1 |
+    |  5 |  3 |    0 |
     |  7 |  3 |    0 |
-    | 42 |  3 |    3 |
+    | 42 |  3 |    0 |
