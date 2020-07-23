@@ -11,4 +11,6 @@ Feature: Multiplication
     Examples:
     |  x |  y | expected |
     |  5 |  3 |      15  |
+    | -7 |  3 |     -21  |
+    | -7 | -5 |      35  |
     | 42 | 47 |    1974  |
