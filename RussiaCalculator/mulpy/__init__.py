@@ -1,1 +1,1 @@
-from .russia import mul
+from .russia import mul, RMul

@@ -1,5 +1,5 @@
 from behave import *
-from mulpy import mul
+from mulpy import RMul
 
 use_step_matcher("re")
 
@@ -21,7 +21,8 @@ def step_impl(context, arg0, arg1):
     """
     x = getattr(context, arg0)
     y = getattr(context, arg1)
-    context.result = mul(x, y)
+    context.rmul = RMul()
+    context.result = context.rmul(x, y)
 
 
 @then("we expect the result == (.+)")
@@ -30,4 +31,22 @@ def step_impl(context, expected):
     :type context: behave.runner.Context
     :type arg0: str
     """
-    assert context.result == int(expected)
+    assert context.result == int(expected), f"invalid resuöt {context.result} != {expected}"
+
+
+@then("we expect (?P<iterations>.+) iterations")
+def step_impl(context, iterations):
+    """
+    :type context: behave.runner.Context
+    :type iterations: str
+    """
+    assert context.rmul.steps == int(iterations), f"invalid amount of steps {context.rmul.steps} != {iterations}"
+
+
+@then("we expect (?P<even>.+) numbers")
+def step_impl(context, even):
+    """
+    :type context: behave.runner.Context
+    :type iterations: str
+    """
+    assert context.rmul.even == int(even), f"invalid amount of even {context.rmul.even} != {even} numbers"
