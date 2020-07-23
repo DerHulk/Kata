@@ -34,3 +34,5 @@ Feature: Multiplication
     Examples:
     |  x |  y | even |
     |  5 |  3 |    1 |
+    |  7 |  3 |    0 |
+    | 42 |  3 |    3 |
