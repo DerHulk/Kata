@@ -153,3 +153,4 @@ FakesAssemblies/
 /.vs
 /Palindrom/.vs/Palindrom
 /RussianPeasantMultiplication/dotnet/.vs/RussianPeasantMultiplication
+*.idea
