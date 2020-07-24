@@ -1,4 +1,4 @@
-class RMul:
+class RPMul:
     def __init__(self):
         self.steps = 0
         self.even = 0
@@ -50,5 +50,5 @@ def mul(x, y):
     :param y: (int)
     :return: product(x, y)
     """
-    rmul = RMul()
+    rmul = RPMul()
     return rmul(x, y)

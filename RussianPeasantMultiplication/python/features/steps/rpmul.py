@@ -1,5 +1,5 @@
 from behave import *
-from mulpy import RMul
+from rpm_py import RPMul
 
 use_step_matcher("re")
 
@@ -21,7 +21,7 @@ def step_impl(context, arg0, arg1):
     """
     x = getattr(context, arg0)
     y = getattr(context, arg1)
-    context.rmul = RMul()
+    context.rmul = RPMul()
     context.result = context.rmul(x, y)
 
 
